@@ -41,18 +41,17 @@ $(document).ready(function () {
    $("#contact-form").submit(function (event) {
         emailjs.init("16s8bly0cFd-yP-So");
 
-        emailjs.sendForm('service_ehnmz1y', 'template_mhxdkr9', '#contact-form')
-            .then(function (response) {
-                console.log('SUCCESS!', response.status, response.text);
-                document.getElementById("contact-form").reset();
-                alert("Form Submitted Successfully");
-            }, function (error) {
-                console.log('FAILED...', error);
-                alert("Form Submission Failed! Try Again");
-            });
+    document.getElementById('test-form').addEventListener('submit', function(event) {
         event.preventDefault();
-    });
-    // <!-- emailjs to mail contact form data -->
+
+        emailjs.sendForm('Contact_Service', 'template_Contact', this)
+            .then(function() {
+                alert('Email sent successfully!');
+            }, function(error) {
+                console.error('Error:', error);
+                alert('Failed to send email. Error: ' + error.text);
+            });
+    });    mail contact form data -->
 
 });
 
