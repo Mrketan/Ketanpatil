@@ -38,20 +38,24 @@ $(document).ready(function () {
     });
 
     // <!-- emailjs to mail contact form data -->
-   $("#contact-form").submit(function (event) {
-        emailjs.init("16s8bly0cFd-yP-So");
+ $("#contact-form").submit(function (event) {
+    event.preventDefault(); // Prevent default form submission
+    
+    // Initialize EmailJS with the correct Public Key
+    emailjs.init("16s8bly0cFd-yP-So");
 
-    document.getElementById('test-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        emailjs.sendForm('Contact_Service', 'template_Contact', this)
-            .then(function() {
-                alert('Email sent successfully!');
-            }, function(error) {
-                console.error('Error:', error);
-                alert('Failed to send email. Error: ' + error.text);
-            });
-    });    mail contact form data -->
+    // Use the correct Service ID and Template ID
+    emailjs.sendForm('Contact_Service', 'template_Contact', '#contact-form')
+        .then(function (response) {
+            console.log('SUCCESS!', response.status, response.text);
+            document.getElementById("contact-form").reset(); // Reset form fields
+            alert("Form Submitted Successfully"); // Success message
+        }, function (error) {
+            console.log('FAILED...', error); // Log error
+            alert("Form Submission Failed! Try Again"); // Error message
+        });
+});
+   <--mail contact form data -->
 
 });
 
